@@ -109,6 +109,7 @@ endef
 _product_var_list :=
 _product_var_list += PRODUCT_NAME
 _product_var_list += PRODUCT_MODEL
+_product_var_list += PRODUCT_BUILD_PROP_OVERRIDES
 
 # The resoure configuration options to use for this product.
 _product_var_list += PRODUCT_LOCALES
