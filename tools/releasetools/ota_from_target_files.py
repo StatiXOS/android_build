@@ -801,7 +801,35 @@ else if get_stage("%(bcb_dev)s") == "3/3" then
     script.Comment("Stage 3/3")
 
   # Dump fingerprints
-  script.Print("Target: {}".format(target_info.fingerprint))
+  #script.Print("Target: {}".format(target_info.fingerprint))
+  #script.Print("Target: %s" % target_fp)
+
+  script.Print(" ");
+  script.Print("                  || StatiXOS 10 ||           ");
+  script.Print(" ");
+  script.Print("                            ,@@@              ");
+  script.Print("                          @@,  @              ");
+  script.Print("                        @@    @@              ");
+  script.Print("                      @@      @               ");
+  script.Print("                   @@(       @#               ");
+  script.Print("                 @@         *@                ");
+  script.Print("               @@           @.                ");
+  script.Print("            @@(            %@                 ");
+  script.Print("           @@              @                  ");
+  script.Print("             &@@@@@@@      @@                 ");
+  script.Print("                     &@@@@@.                  ");
+  script.Print("                         @@@@@@@@@@@@&        ");
+  script.Print("                         @           @@@@&    ");
+  script.Print("                        @@             @@@    ");
+  script.Print("                        @            @@       ");
+  script.Print("                       @@          @@         ");
+  script.Print("                       @         @@           ");
+  script.Print("                      @@      @@,             ");
+  script.Print("                      @     @@                ");
+  script.Print("                     @*   @@                  ");
+  script.Print("                     @ @@*                    ");
+  script.Print("                      @                       ");
+  script.Print(" ");
 
   script.AppendExtra("ifelse(is_mounted(\"/system\"), unmount(\"/system\"));")
   device_specific.FullOTA_InstallBegin()
