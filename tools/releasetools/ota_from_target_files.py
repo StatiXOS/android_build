@@ -962,7 +962,35 @@ else if get_stage("%(bcb_dev)s") == "3/3" then
     script.Comment("Stage 3/3")
 
   # Dump fingerprints
-  script.Print("Target: {}".format(target_info.fingerprint))
+  #script.Print("Target: {}".format(target_info.fingerprint))
+  #script.Print("Target: %s" % target_fp)
+
+  script.Print(" ");
+  script.Print("                  || StatiXOS 10 ||           ");
+  script.Print(" ");
+  script.Print("                            ,@@@              ");
+  script.Print("                          @@,  @              ");
+  script.Print("                        @@    @@              ");
+  script.Print("                      @@      @               ");
+  script.Print("                   @@(       @#               ");
+  script.Print("                 @@         *@                ");
+  script.Print("               @@           @.                ");
+  script.Print("            @@(            %@                 ");
+  script.Print("           @@              @                  ");
+  script.Print("             &@@@@@@@      @@                 ");
+  script.Print("                     &@@@@@.                  ");
+  script.Print("                         @@@@@@@@@@@@&        ");
+  script.Print("                         @           @@@@&    ");
+  script.Print("                        @@             @@@    ");
+  script.Print("                        @            @@       ");
+  script.Print("                       @@          @@         ");
+  script.Print("                       @         @@           ");
+  script.Print("                      @@      @@,             ");
+  script.Print("                      @     @@                ");
+  script.Print("                     @*   @@                  ");
+  script.Print("                     @ @@*                    ");
+  script.Print("                      @                       ");
+  script.Print(" ");
 
   is_system_as_root = target_info.get("system_root_image") == "true"
   if is_system_as_root and not common.system_as_system:
