@@ -1186,4 +1186,4 @@ fi
 
 export ANDROID_BUILD_TOP=$(gettop)
 
-. vendor/statix/build/envsetup.sh
+. $ANDROID_BUILD_TOP/vendor/statix/build/envsetup.sh
