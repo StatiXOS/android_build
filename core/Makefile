@@ -28,6 +28,7 @@ product_copy_files_ignored :=
 $(foreach cf,$(unique_product_copy_files_pairs), \
     $(eval _src := $(call word-colon,1,$(cf))) \
     $(eval _dest := $(call word-colon,2,$(cf))) \
+    $(call check-product-copy-files,$(cf),$(_dest)) \
     $(if $(filter $(unique_product_copy_files_destinations),$(_dest)), \
         $(eval product_copy_files_ignored += $(cf)), \
         $(eval _fulldest := $(call append-path,$(PRODUCT_OUT),$(_dest))) \
@@ -302,7 +303,7 @@ endif
 ifeq ($(DEFAULT_SYSTEM_DEV_CERTIFICATE),build/target/product/security/testkey)
 BUILD_KEYS := test-keys
 else
-BUILD_KEYS := release-keys
+BUILD_KEYS := dev-keys
 endif
 BUILD_VERSION_TAGS += $(BUILD_KEYS)
 BUILD_VERSION_TAGS := $(subst $(space),$(comma),$(sort $(BUILD_VERSION_TAGS)))
@@ -412,12 +413,8 @@ endif
 	$(hide) TARGET_BUILD_TYPE="$(TARGET_BUILD_VARIANT)" \
 	        TARGET_BUILD_FLAVOR="$(TARGET_BUILD_FLAVOR)" \
 	        TARGET_DEVICE="$(TARGET_DEVICE)" \
-	        PRODUCT_NAME="$(TARGET_PRODUCT)" \
-	        PRODUCT_BRAND="$(PRODUCT_BRAND)" \
 	        PRODUCT_DEFAULT_LOCALE="$(call get-default-product-locale,$(PRODUCT_LOCALES))" \
 	        PRODUCT_DEFAULT_WIFI_CHANNELS="$(PRODUCT_DEFAULT_WIFI_CHANNELS)" \
-	        PRODUCT_MODEL="$(PRODUCT_MODEL)" \
-	        PRODUCT_MANUFACTURER="$(PRODUCT_MANUFACTURER)" \
 	        PRIVATE_BUILD_DESC="$(PRIVATE_BUILD_DESC)" \
 	        BUILD_ID="$(BUILD_ID)" \
 	        BUILD_DISPLAY_ID="$(BUILD_DISPLAY_ID)" \
@@ -437,14 +434,12 @@ endif
 	        PLATFORM_VERSION_ALL_CODENAMES="$(PLATFORM_VERSION_ALL_CODENAMES)" \
 	        PLATFORM_MIN_SUPPORTED_TARGET_SDK_VERSION="$(PLATFORM_MIN_SUPPORTED_TARGET_SDK_VERSION)" \
 	        BUILD_VERSION_TAGS="$(BUILD_VERSION_TAGS)" \
-	        BUILD_FINGERPRINT="$(BUILD_FINGERPRINT_FROM_FILE)" \
 	        $(if $(OEM_THUMBPRINT_PROPERTIES),BUILD_THUMBPRINT="$(BUILD_THUMBPRINT_FROM_FILE)") \
 	        TARGET_CPU_ABI_LIST="$(TARGET_CPU_ABI_LIST)" \
 	        TARGET_CPU_ABI_LIST_32_BIT="$(TARGET_CPU_ABI_LIST_32_BIT)" \
 	        TARGET_CPU_ABI_LIST_64_BIT="$(TARGET_CPU_ABI_LIST_64_BIT)" \
 	        TARGET_CPU_ABI="$(TARGET_CPU_ABI)" \
 	        TARGET_CPU_ABI2="$(TARGET_CPU_ABI2)" \
-	        $(PRODUCT_BUILD_PROP_OVERRIDES) \
 	        bash $(BUILDINFO_SH) >> $@
 	$(hide) $(foreach file,$(system_prop_file), \
 	    if [ -f "$(file)" ]; then \
@@ -2169,10 +2164,6 @@ INTERNAL_SYSTEMIMAGE_FILES := $(sort $(filter $(TARGET_OUT)/%, \
 
 FULL_SYSTEMIMAGE_DEPS := $(INTERNAL_SYSTEMIMAGE_FILES) $(INTERNAL_USERIMAGES_DEPS)
 
-ifeq ($(BOARD_BUILD_SYSTEM_ROOT_IMAGE),true)
-    FULL_SYSTEMIMAGE_DEPS += $(INSTALLED_KERNEL_TARGET)
-endif
-
 # ASAN libraries in the system image - add dependency.
 ASAN_IN_SYSTEM_INSTALLED := $(TARGET_OUT)/asan.tar.bz2
 ifneq (,$(filter address, $(SANITIZE_TARGET)))
@@ -2853,7 +2844,7 @@ INSTALLED_VENDORIMAGE_TARGET := $(BUILT_VENDORIMAGE_TARGET)
 ifdef BUILT_VENDOR_MANIFEST
 $(INSTALLED_VENDORIMAGE_TARGET): $(BUILT_ASSEMBLED_VENDOR_MANIFEST)
 endif
-$(INSTALLED_VENDORIMAGE_TARGET): $(INTERNAL_USERIMAGES_DEPS) $(INTERNAL_VENDORIMAGE_FILES) $(INSTALLED_FILES_FILE_VENDOR) $(BUILD_IMAGE_SRCS) $(DEPMOD) $(BOARD_VENDOR_KERNEL_MODULES) $(INSTALLED_KERNEL_TARGET)
+$(INSTALLED_VENDORIMAGE_TARGET): $(INTERNAL_USERIMAGES_DEPS) $(INTERNAL_VENDORIMAGE_FILES) $(INSTALLED_FILES_FILE_VENDOR) $(BUILD_IMAGE_SRCS) $(DEPMOD) $(BOARD_VENDOR_KERNEL_MODULES)
 	$(build-vendorimage-target)
 
 .PHONY: vendorimage-nodeps vnod
@@ -3078,8 +3069,6 @@ $(strip $(foreach item,$(1),$(INSTALLED_$(call to-upper,$(item))IMAGE_TARGET)))
 endef
 
 ifdef TARGET_NEEDS_DTBOIMAGE
-INSTALLED_DTBOIMAGE_TARGET := $(PRODUCT_OUT)/dtbo.img
-else ifdef BOARD_KERNEL_SEPARATED_DTBO
 INSTALLED_DTBOIMAGE_TARGET := $(PRODUCT_OUT)/dtbo.img
 endif
 
