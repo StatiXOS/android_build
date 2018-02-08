@@ -2998,6 +2998,8 @@ include $(sort $(wildcard $(BUILD_SYSTEM)/tasks/*.mk))
 include $(sort $(wildcard platform_testing/build/tasks/*.mk))
 include $(sort $(wildcard test/vts/tools/build/tasks/*.mk))
 endif
+# Also include vendor makefiles
+-include $(sort $(wildcard $(TOPDIR)vendor/static/build/tasks/*.mk))
 
 include $(BUILD_SYSTEM)/product-graph.mk
 
