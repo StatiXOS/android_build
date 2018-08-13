@@ -926,9 +926,6 @@ PLATFORM_SEPOLICY_COMPAT_VERSIONS := \
     PLATFORM_SEPOLICY_VERSION \
     TOT_SEPOLICY_VERSION \
 
-# Rules for QCOM targets
-include vendor/statix/build/core/qcom_target.mk
-
 # ###############################################################
 # Set up final options.
 # ###############################################################
@@ -1091,3 +1088,9 @@ endif
 include $(BUILD_SYSTEM)/dumpvar.mk
 # Include any vendor specific config.mk file
 -include vendor/*/build/core/config.mk
+
+# QCOM targets and pathmap
+ifeq ($(BOARD_USES_QCOM_HARDWARE),true)
+include $(TOPDIR)vendor/statix/build/core/qcom_target.mk
+include $(TOPDIR)vendor/statix/build/core/pathmap.mk
+endif
