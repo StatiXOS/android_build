@@ -1181,6 +1181,9 @@ DEFAULT_DATA_OUT_MODULES := ltp $(ltp_packages) $(kselftest_modules)
 
 include $(BUILD_SYSTEM)/dumpvar.mk
 
+# Include any vendor specific config.mk file
+-include vendor/*/build/core/config.mk
+
 # QCOM targets and pathmap
 ifeq ($(BOARD_USES_QCOM_HARDWARE),true)
 include $(TOPDIR)vendor/statix/build/core/pathmap.mk
