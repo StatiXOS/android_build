@@ -1086,3 +1086,5 @@ include $(BUILD_SYSTEM)/soong_config.mk
 endif
 
 include $(BUILD_SYSTEM)/dumpvar.mk
+# Include any vendor specific config.mk file
+-include vendor/*/build/core/config.mk
