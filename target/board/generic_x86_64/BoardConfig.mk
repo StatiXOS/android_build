@@ -30,7 +30,9 @@ include build/make/target/board/BoardConfigGsiCommon.mk
 BOARD_SYSTEMIMAGE_PARTITION_SIZE := 2684354560 # 2.5 GB
 BOARD_USERDATAIMAGE_PARTITION_SIZE := 576716800
 
-BOARD_SEPOLICY_DIRS += device/generic/goldfish/sepolicy/x86
+BOARD_SEPOLICY_DIRS += \
+        device/generic/goldfish/sepolicy/common \
+        device/generic/goldfish/sepolicy/x86
 
 # Wifi.
 BOARD_WLAN_DEVICE           := emulator
