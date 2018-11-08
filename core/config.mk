@@ -1099,3 +1099,6 @@ ifeq ($(BOARD_USES_QCOM_HARDWARE),true)
 include $(TOPDIR)vendor/statix/build/core/pathmap.mk
 include $(TOPDIR)vendor/statix/build/core/qcom_target.mk
 endif
+
+# StatixOS common sepolicy
+include $(TOPDIR)vendor/statix/sepolicy/sepolicy.mk
