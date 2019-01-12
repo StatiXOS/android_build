@@ -1100,12 +1100,5 @@ include $(TOPDIR)vendor/statix/build/core/pathmap.mk
 include $(TOPDIR)vendor/statix/build/core/qcom_target.mk
 endif
 
-# If we are building a treble device, let's skip this and 
-# add the needed custom sepolicy stuff straight in the device tree
-ifneq (true,$(PRODUCT_FULL_TREBLE))
-# We need to be sure the global selinux policies are included
-# last, to avoid accidental resetting by device configs
 # StatixOS common sepolicy
 include $(TOPDIR)vendor/statix/sepolicy/sepolicy.mk
-
-endif
