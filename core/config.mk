@@ -226,8 +226,8 @@ endif
 # are specific to the user's build configuration.
 include $(BUILD_SYSTEM)/envsetup.mk
 
-ifeq ($(BOARD_USES_QCOM_HARDWARE),true)
-include $(TOPDIR)vendor/statix/build/core/BoardConfigQcom.mk
+ifneq ($(STATIX_BUILD),)
+include vendor/statix/config/BoardConfigStatix.mk
 endif
 
 # Pruned directory options used when using findleaves.py
