@@ -33,12 +33,24 @@ ifeq ($(strip $(TARGET_$(combo_2nd_arch_prefix)CPU_VARIANT)),)
 TARGET_$(combo_2nd_arch_prefix)CPU_VARIANT := generic
 endif
 
-KNOWN_ARMv8_CORES := cortex-a53 cortex-a53.a57 cortex-a55 cortex-a73 cortex-a75
-KNOWN_ARMv8_CORES += kryo denver64 exynos-m1 exynos-m2
+KNOWN_ARMv8_CORES := cortex-a53 cortex-a53.a57 cortex-a55 cortex-a73 cortex-a75 cortex-a76
+KNOWN_ARMv8_CORES += kryo kryo385 exynos-m1 exynos-m2
 
+KNOWN_ARMv82a_CORES := cortex-a55 cortex-a75 kryo385
+
+# Check for cores that implement armv8-2a ISAs.
+ifneq (,$(filter $(TARGET_$(combo_2nd_arch_prefix)CPU_VARIANT), $(KNOWN_ARMv82a_CORES)))
+  ifneq ($(TARGET_$(combo_2nd_arch_prefix)ARCH_VARIANT),armv8-2a)
+    $(warning $(TARGET_$(combo_2nd_arch_prefix)CPU_VARIANT) is armv8-2a.)
+    ifneq (,$(TARGET_$(combo_2nd_arch_prefix)ARCH_VARIANT))
+      $(warning TARGET_$(combo_2nd_arch_prefix)ARCH_VARIANT, $(TARGET_$(combo_2nd_arch_prefix)ARCH_VARIANT), ignored! Use armv8-2a instead.)
+    endif
+    # Overwrite TARGET_$(combo_2nd_arch_prefix)ARCH_VARIANT
+    TARGET_$(combo_2nd_arch_prefix)ARCH_VARIANT := armv8-2a
+  endif
 # Many devices (incorrectly) use armv7-a-neon as the 2nd architecture variant
 # for cores that implement armv8-a ISAs. The following sets it to armv8-a.
-ifneq (,$(filter $(TARGET_$(combo_2nd_arch_prefix)CPU_VARIANT), $(KNOWN_ARMv8_CORES)))
+else ifneq (,$(filter $(TARGET_$(combo_2nd_arch_prefix)CPU_VARIANT), $(KNOWN_ARMv8_CORES)))
   ifneq ($(TARGET_$(combo_2nd_arch_prefix)ARCH_VARIANT),armv8-a)
     $(warning $(TARGET_$(combo_2nd_arch_prefix)CPU_VARIANT) is armv8-a.)
     ifneq (,$(TARGET_$(combo_2nd_arch_prefix)ARCH_VARIANT))
@@ -48,11 +60,9 @@ ifneq (,$(filter $(TARGET_$(combo_2nd_arch_prefix)CPU_VARIANT), $(KNOWN_ARMv8_CO
     TARGET_$(combo_2nd_arch_prefix)ARCH_VARIANT := armv8-a
   endif
 endif
-
 ifeq ($(strip $(TARGET_$(combo_2nd_arch_prefix)ARCH_VARIANT)),)
 $(error TARGET_$(combo_2nd_arch_prefix)ARCH_VARIANT must be set)
 endif
-
 TARGET_ARCH_SPECIFIC_MAKEFILE := $(BUILD_COMBOS)/arch/$(TARGET_$(combo_2nd_arch_prefix)ARCH)/$(TARGET_$(combo_2nd_arch_prefix)ARCH_VARIANT).mk
 ifeq ($(strip $(wildcard $(TARGET_ARCH_SPECIFIC_MAKEFILE))),)
 $(error Unknown ARM architecture version: $(TARGET_$(combo_2nd_arch_prefix)ARCH_VARIANT))
@@ -60,11 +70,9 @@ endif
 
 include $(TARGET_ARCH_SPECIFIC_MAKEFILE)
 include $(BUILD_SYSTEM)/combo/fdo.mk
-
 define $(combo_var_prefix)transform-shared-lib-to-toc
 $(call _gen_toc_command_for_elf,$(1),$(2))
 endef
-
 $(combo_2nd_arch_prefix)TARGET_PACK_MODULE_RELOCATIONS := true
-
 $(combo_2nd_arch_prefix)TARGET_LINKER := /system/bin/linker
+
