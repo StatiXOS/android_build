@@ -226,10 +226,6 @@ endif
 # are specific to the user's build configuration.
 include $(BUILD_SYSTEM)/envsetup.mk
 
-ifneq ($(STATIX_BUILD),)
-include vendor/statix/config/BoardConfigStatix.mk
-endif
-
 # Pruned directory options used when using findleaves.py
 # See envsetup.mk for a description of SCAN_EXCLUDE_DIRS
 FIND_LEAVES_EXCLUDES := $(addprefix --prune=, $(SCAN_EXCLUDE_DIRS) .repo .git)
@@ -1169,6 +1165,10 @@ dont_bother_goals := out \
     vbmetaimage-nodeps \
     product-graph dump-products
 
+ifneq ($(STATIX_BUILD),)
+include vendor/statix/config/BoardConfigStatix.mk
+endif
+
 ifeq ($(CALLED_FROM_SETUP),true)
 include $(BUILD_SYSTEM)/ninja_config.mk
 include $(BUILD_SYSTEM)/soong_config.mk
@@ -1183,9 +1183,3 @@ include $(BUILD_SYSTEM)/dumpvar.mk
 
 # Include any vendor specific config.mk file
 -include vendor/*/build/core/config.mk
-
-# QCOM targets and pathmap
-ifeq ($(BOARD_USES_QCOM_HARDWARE),true)
-include $(TOPDIR)vendor/statix/build/core/pathmap.mk
-include $(TOPDIR)vendor/statix/build/core/qcom_target.mk
-endif
