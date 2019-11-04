@@ -105,6 +105,13 @@ PRODUCT_HOST_PACKAGES += \
 # Enable stats logging in LMKD
 TARGET_LMKD_STATS_LOG := true
 
+# Include all zygote init scripts. "ro.zygote" will select one of them.
+PRODUCT_COPY_FILES += \
+    system/core/rootdir/init.zygote32.rc:system/etc/init/hw/init.zygote32.rc \
+    system/core/rootdir/init.zygote64.rc:system/etc/init/hw/init.zygote64.rc \
+    system/core/rootdir/init.zygote32_64.rc:system/etc/init/hw/init.zygote32_64.rc \
+    system/core/rootdir/init.zygote64_32.rc:system/etc/init/hw/init.zygote64_32.rc \
+
 # Enable dynamic partition size
 PRODUCT_USE_DYNAMIC_PARTITION_SIZE := true
 
