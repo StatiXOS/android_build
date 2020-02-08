@@ -258,3 +258,7 @@ com\.qualcomm\.wfd\..*
 org\.codeaurora\.ims.*
 # telephony-ext:
 org\.codeaurora\.internal.*
+
+###################################################
+# LineageOS
+vendor.lineage.touch.*
