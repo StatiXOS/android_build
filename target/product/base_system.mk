@@ -330,7 +330,14 @@ PRODUCT_COPY_FILES += \
     system/core/rootdir/init.usb.rc:root/init.usb.rc \
     system/core/rootdir/init.usb.configfs.rc:root/init.usb.configfs.rc \
     system/core/rootdir/ueventd.rc:root/ueventd.rc \
+
+ifeq ($(TARGET_USES_ADBLOCK_HOSTS)
+PRODUCT_COPY_FILES += \
+    system/core/rootdir/etc/adblock_hosts:system/etc/hosts
+else
+PRODUCT_COPY_FILES += \
     system/core/rootdir/etc/hosts:system/etc/hosts
+endif
 
 # Add the compatibility library that is needed when android.test.base
 # is removed from the bootclasspath.
