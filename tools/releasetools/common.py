@@ -341,7 +341,7 @@ class BuildInfo(object):
       "product", "product_services", "odm", "vendor", "system"]
   _RO_PRODUCT_PROPS_DEFAULT_SOURCE_ORDER_LEGACY = []
 
-  def __init__(self, info_dict, override_device, oem_dicts=None):
+  def __init__(self, info_dict, oem_dicts=None):
     """Initializes a BuildInfo instance with the given dicts.
 
     Note that it only wraps up the given dicts, without making copies.
@@ -390,10 +390,7 @@ class BuildInfo(object):
           "system_other"] = self._partition_fingerprints["system"]
 
     # These two should be computed only after setting self._oem_props.
-    if override_device == "auto":
-      self._device = self.GetOemProperty("ro.product.device")
-    else:
-      self._device = OPTIONS.override_device
+    self._device = self.GetOemProperty("ro.product.device")
     self._fingerprint = self.CalculateFingerprint()
     check_fingerprint(self._fingerprint)
 

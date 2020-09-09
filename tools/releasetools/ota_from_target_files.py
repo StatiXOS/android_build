@@ -202,9 +202,6 @@ A/B OTA specific options
       ones. Should only be used if caller knows it's safe to do so (e.g. all the
       postinstall work is to dexopt apps and a data wipe will happen immediately
       after). Only meaningful when generating A/B OTAs.
-
-  --override_device <device>
-      Override device-specific asserts. Can be a comma-separated list.
 """
 
 from __future__ import print_function
@@ -269,7 +266,6 @@ OPTIONS.output_metadata_path = None
 OPTIONS.disable_fec_computation = False
 OPTIONS.force_non_ab = False
 OPTIONS.boot_variable_file = None
-OPTIONS.override_device = 'auto'
 
 
 METADATA_NAME = 'META-INF/com/android/metadata'
@@ -288,6 +284,7 @@ SECONDARY_PAYLOAD_SKIPPED_IMAGES = [
     'boot', 'dtbo', 'modem', 'odm', 'product', 'radio', 'recovery',
     'system_ext', 'vbmeta', 'vbmeta_system', 'vbmeta_vendor', 'vendor',
     'vendor_boot']
+
 
 class PayloadSigner(object):
   """A class that wraps the payload signing works.
@@ -749,7 +746,7 @@ def WriteFullOTAPackage(input_zip, output_file):
   # ts_text = target_info.GetBuildProp("ro.build.date")
   # script.AssertOlderBuild(ts, ts_text)
 
-  target_info.WriteDeviceAssertions(script, OPTIONS.oem_no_mount, OPTIONS.override_device)
+  target_info.WriteDeviceAssertions(script, OPTIONS.oem_no_mount)
   device_specific.FullOTA_Assertions()
 
   block_diff_dict = GetBlockDifferences(target_zip=input_zip, source_zip=None,
@@ -2139,8 +2136,6 @@ def main(argv):
       OPTIONS.force_non_ab = True
     elif o == "--boot_variable_file":
       OPTIONS.boot_variable_file = a
-    elif o in ("--override_device"):
-      OPTIONS.override_device = a
     else:
       return False
     return True
@@ -2179,7 +2174,6 @@ def main(argv):
                                  "disable_fec_computation",
                                  "force_non_ab",
                                  "boot_variable_file=",
-                                 "override_device=",
                              ], extra_option_handler=option_handler)
 
   if len(args) != 2:
@@ -2222,9 +2216,6 @@ def main(argv):
 
   # Load OEM dicts if provided.
   OPTIONS.oem_dicts = _LoadOemDicts(OPTIONS.oem_source)
-
-  if "ota_override_device" in OPTIONS.info_dict:
-    OPTIONS.override_device = OPTIONS.info_dict.get("ota_override_device")
 
   # Assume retrofitting dynamic partitions when base build does not set
   # use_dynamic_partitions but target build does.
