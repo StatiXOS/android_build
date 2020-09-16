@@ -1,3 +1,4 @@
+
 # Copyright (C) 2009 The Android Open Source Project
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
@@ -138,10 +139,10 @@ class EdifyGenerator(object):
   def AssertDevice(self, device):
     """Assert that the device identifier is the given string."""
     cmd = ('assert(' +
-           ' || \0'.join(['getprop("ro.product.device") == "%s" || getprop("ro.build.product") == "%s"'
+           ' || \0'.join(['getprop("ro.build.product") == "%s" || getprop("ro.build.product") == "%s"'
                          % (i, i) for i in device.split(",")]) +
            ' || abort("E%d: This package is for device: %s; ' +
-           'this device is " + getprop("ro.product.device") + ".");' +
+           'this device is " + getprop("ro.build.product") + ".");' +
            ');') % (common.ErrorCode.DEVICE_MISMATCH, device)
     self.script.append(self.WordWrap(cmd))
 
