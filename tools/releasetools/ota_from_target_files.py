@@ -805,7 +805,7 @@ else if get_stage("%(bcb_dev)s") == "3/3" then
   #script.Print("Target: %s" % target_fp)
 
   script.Print(" ");
-  script.Print("                  || StatiXOS 10 ||           ");
+  script.Print("                  || StatiXOS 11 ||           ");
   script.Print(" ");
   script.Print("                            ,@@@              ");
   script.Print("                          @@,  @              ");
