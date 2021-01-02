@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "583c892c_8388075e",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000002
+      },
+      "writtenOn": "2021-01-02T18:47:40Z",
+      "side": 1,
+      "message": "not sure that i\u0027ll keep this one cause idk if anyone of us uses make dist",
+      "revId": "d9715d6a8364a15bd51b494c640ef13efdcb6d41",
+      "serverId": "039621b9-0c7c-40f3-867c-684f4bc911d6"
+    }
+  ]
+}
