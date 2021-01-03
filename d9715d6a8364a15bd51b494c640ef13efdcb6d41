@@ -16,6 +16,23 @@
       "message": "not sure that i\u0027ll keep this one cause idk if anyone of us uses make dist",
       "revId": "d9715d6a8364a15bd51b494c640ef13efdcb6d41",
       "serverId": "039621b9-0c7c-40f3-867c-684f4bc911d6"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f1973241_f6a72e54",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000000
+      },
+      "writtenOn": "2021-01-03T09:45:45Z",
+      "side": 1,
+      "message": "check boot jars is also run on make and i use it occasionally so im good w submitting this",
+      "revId": "d9715d6a8364a15bd51b494c640ef13efdcb6d41",
+      "serverId": "039621b9-0c7c-40f3-867c-684f4bc911d6"
     }
   ]
 }
