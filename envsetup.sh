@@ -740,6 +740,7 @@ function lunch()
     fi
     export TARGET_PRODUCT=$(get_build_var TARGET_PRODUCT)
     export TARGET_BUILD_VARIANT=$(get_build_var TARGET_BUILD_VARIANT)
+    pull_bromite $(get_build_var TARGET_ARCH)
     if [ -n "$version" ]; then
       export TARGET_PLATFORM_VERSION=$(get_build_var TARGET_PLATFORM_VERSION)
     else
