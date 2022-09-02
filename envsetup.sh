@@ -653,14 +653,19 @@ function choosecombo()
     destroy_build_var_cache
 }
 
+# Clear this variable.  It will be built up again when the vendorsetup.sh
+# files are included at the end of this file.
+unset LUNCH_MENU_CHOICES
 function add_lunch_combo()
 {
-    if [ -n "$ZSH_VERSION" ]; then
-        echo -n "${funcfiletrace[1]}: "
-    else
-        echo -n "${BASH_SOURCE[1]}:${BASH_LINENO[0]}: "
-    fi
-    echo "add_lunch_combo is obsolete. Use COMMON_LUNCH_CHOICES in your AndroidProducts.mk instead."
+    local new_combo=$1
+    local c
+    for c in ${LUNCH_MENU_CHOICES[@]} ; do
+        if [ "$new_combo" = "$c" ] ; then
+            return
+        fi
+    done
+    LUNCH_MENU_CHOICES=(${LUNCH_MENU_CHOICES[@]} $new_combo)
 }
 
 function print_lunch_menu()
@@ -689,7 +694,7 @@ function print_lunch_menu()
 
     local i=1
     local choice
-    for choice in $(echo $choices)
+    for choice in $(TARGET_BUILD_APPS= LUNCH_MENU_CHOICES="${LUNCH_MENU_CHOICES[@]}" get_build_var COMMON_LUNCH_CHOICES)
     do
         echo "     $i. $choice"
         i=$(($i+1))
