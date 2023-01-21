@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ee09772d_3a3e5be8",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000047
+      },
+      "writtenOn": "2023-01-21T14:04:56Z",
+      "side": 1,
+      "message": "Is this necessary? Does board-info not work for you?",
+      "revId": "53364104d58375127c1daae6da46c0f00a798316",
+      "serverId": "039621b9-0c7c-40f3-867c-684f4bc911d6"
+    }
+  ]
+}
