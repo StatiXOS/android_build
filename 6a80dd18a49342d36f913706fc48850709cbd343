@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "228f74cd_78d2731d",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000071
+      },
+      "writtenOn": "2023-05-31T16:58:41Z",
+      "side": 1,
+      "message": "Also breaks compression of fastboot update packages, making them larger",
+      "revId": "6a80dd18a49342d36f913706fc48850709cbd343",
+      "serverId": "039621b9-0c7c-40f3-867c-684f4bc911d6"
+    }
+  ]
+}
