@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "13d311d6_a6a29f4f",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000125
+      },
+      "writtenOn": "2023-12-08T20:03:43Z",
+      "side": 1,
+      "message": "Comment removed by: Ralph Chen; Reason: Wrong.",
+      "revId": "84f4558bc09eeae104f9b1e1209702330c00da1f",
+      "serverId": "039621b9-0c7c-40f3-867c-684f4bc911d6"
+    }
+  ]
+}
